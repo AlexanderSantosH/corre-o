@@ -114,15 +114,15 @@ public class Grade extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
 
         // Cria um icone do arquivo png e seta na imagem correspondente
-        ImageIcon bola_ = new ImageIcon("C:\\xampp\\htdocs\\SNAKE\\ImageIcon\\bola.png");
+        ImageIcon bola_ = new ImageIcon("ImageIcon/bola.png");
         bola = bola_.getImage();
 
         // Cria um icone do arquivo png e seta na imagem correspondente
-        ImageIcon comida_ = new ImageIcon("C:\\xampp\\htdocs\\SNAKE\\ImageIcon\\comida.png");
+        ImageIcon comida_ = new ImageIcon("ImageIcon/comida.png");
         comida = comida_.getImage();
 
         // Cria um icone do arquivo png e seta na imagem correspondente
-        ImageIcon cabeça_ = new ImageIcon("C:\\xampp\\htdocs\\SNAKE\\ImageIcon\\cabeça.png");
+        ImageIcon cabeça_ = new ImageIcon("ImageIcon/cabeça.png");
         cabeça = cabeça_.getImage();
 
         // Define o foco para o JPanel
@@ -154,6 +154,14 @@ public class Grade extends JPanel implements ActionListener {
         tempo.start();
     }
 
+    //Timer da animação
+    //16.67ms = 1 frame em 60fps
+    private final Timer animationTimer = new Timer(16, this);
+    
+    
+    
+    
+    
     // Método para desenhar elementos na tela do jogo
     @Override
     public void paint(Graphics g) {
@@ -208,26 +216,42 @@ public class Grade extends JPanel implements ActionListener {
         // Desenha a fonte na tela
         g.drawString(SCORE, (WIDTH_ - SCORE_METRICA.stringWidth(SCORE)) - 10, HEIGHT_ - 10);
     }
-
+    
     public void FimDeJogo(Graphics g) {
+        
         // Define a frase para escrever
         String msg = "FIM DE JOGO! Sua pontuação: " + PONTUAÇÃO;
         // Define o estilo da fonte
         Font pequena = new Font("Consolas", Font.BOLD, 14);
         // Define o tamanho da fonte
         FontMetrics metrica = this.getFontMetrics(pequena);
-
-        // Define a cor da fonte
+        
+         // Define a cor da fonte
         g.setColor(Color.white);
         // Seta a fonte para o gráfico
         g.setFont(pequena);
         // Desenha a fonte na tela
-       g.drawString(msg, (WIDTH_ - metrica.stringWidth(msg)) / 2, HEIGHT_ / 2);
-
+        g.drawString(msg, (WIDTH_ - metrica.stringWidth(msg)) / 2, HEIGHT_ / 2);   
+                
+        tempo.stop();
+        g.dispose();
+        
+        
+        int opcao = JOptionPane.showConfirmDialog(null, "Jogar Novamente", " ", JOptionPane.YES_NO_OPTION);
+        
+        if (opcao == 0) { 
+          g.dispose(); 
+          new Snake().setVisible(true); 
+          //tempo = new Timer(DELAY, this);
+          
+          } else { 
+          System.exit(0); 
+          }
+       
 
    }
-
-    // Método para checar se a cobrinha comeu a comida
+    
+        // Método para checar se a cobrinha comeu a comida
     public void checarComida() {
         //Fila f = new Fila(pontos);
         // Se ele comer na mesma posição (x,y) então aumenta o corpo da cobrinha
