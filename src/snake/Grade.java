@@ -138,7 +138,9 @@ public class Grade extends JPanel implements ActionListener {
     // Método para inicializar o jogo
     public void initJogo() {
         // Define quantidade de pontos iniciais
+        estaJogando = true;
         pontos = 3;
+        PONTUAÇÃO = 0;
 
         // Define a posição em (x,y) de cada ponto
         for (int i = 0; i < pontos; i++) {
@@ -241,8 +243,10 @@ public class Grade extends JPanel implements ActionListener {
         
         if (opcao == 0) { 
           g.dispose(); 
-          new Snake().setVisible(true); 
-          //tempo = new Timer(DELAY, this);
+          
+          
+          initJogo();
+          //;
           
           } else { 
           System.exit(0); 
