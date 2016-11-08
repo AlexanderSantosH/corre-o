@@ -55,6 +55,7 @@ public class Snake extends JFrame
        
         // Cria o novo JFrame
         new Snake();
+        
     }
 
 }
